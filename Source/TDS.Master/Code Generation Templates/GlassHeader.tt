@@ -1,12 +1,12 @@
-﻿<#@ template language="C#" #>
-<#@ include file="Helpers.tt" #>
-<#@ assembly name="System.Core.dll" #>
+﻿<#@ template language="C#"  #>
+<#@ assembly name="System.Core" #>
 
-<#@ import namespace="HedgehogDevelopment.CodeGeneration.Extensions" #>
-<#@ assembly name="HedgehogDevelopment.CodeGeneration.Extensions.dll" #>
+<#@ include file="Helpers.tt" #>
+<#@ include file="StringExtensions.tt" #>
+<#@ include file="GeneralExtensions.tt" #>
+<#@ include file="Inflector.tt" #>
 
 <#@ import namespace="System" #>
-<#@ import namespace="System.Text" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="HedgehogDevelopment.SitecoreProject.VSIP.CodeGeneration.Models" #>
@@ -29,11 +29,10 @@ using System;
 using System.Collections.Generic;   
 using System.Linq;
 using System.Text;
-using Glass.Mapper.Sc.Configuration.Attributes;
-using Glass.Mapper.Sc.Configuration;
-using Glass.Mapper.Sc.Fields;
+using Glass.Sitecore.Mapper.Configuration.Attributes;
+using Glass.Sitecore.Mapper.Configuration;
+using Glass.Sitecore.Mapper.FieldTypes;
 using Sitecore.Globalization;
-using Sitecore.Data;
 
 <#
 // Calculate the top leve namespace as configured in the target project and
@@ -44,7 +43,7 @@ string fullNamespace = JoinNamespaces(DefaultNamespace, Model.BaseNamespace);
 namespace <#=fullNamespace #>
 {
 
-	public partial interface IGlassBase{
+	public interface IGlassBase{
 		
 		[SitecoreId]
 		Guid Id{ get; }
@@ -57,7 +56,7 @@ namespace <#=fullNamespace #>
 
 	}
 
-	public abstract partial class GlassBase : IGlassBase{
+	public abstract class GlassBase : IGlassBase{
 		
 		[SitecoreId]
 		public virtual Guid Id{ get; private set;}
